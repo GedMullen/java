@@ -4,8 +4,8 @@ public class Masonry extends House {
 	
 	private int maxFloors = 0;
 
-	public Masonry(int materialCost, int numberOfRooms, int squareFootage, ArrayList<Room> rooms, int maxFloors) {
-		super(materialCost, numberOfRooms, squareFootage, rooms);
+	public Masonry(String name, int materialCost, int squareFootage, ArrayList<Room> rooms, int maxFloors) {
+		super(name, materialCost, squareFootage, rooms);
 		this.maxFloors = maxFloors;
 	}
 
@@ -19,10 +19,9 @@ public class Masonry extends House {
 
 	@Override
 	public String toString() {
-		return "Masonry [maxFloors=" + maxFloors + ", materialCost=" + materialCost + ", numberOfRooms=" + numberOfRooms
+		return "Masonry [maxFloors=" + maxFloors + ", name=" + name + ", materialCost=" + materialCost
 				+ ", squareFootage=" + squareFootage + ", rooms=" + rooms + "]";
 	}
-	
-	
+
 
 }

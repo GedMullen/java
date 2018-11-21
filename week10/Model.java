@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Model {
 
 	ArrayList<House> houses = new ArrayList<House>();
+	ArrayList<Room> rooms = new ArrayList<Room>();
 	ArrayList<Customer> customers = new ArrayList<Customer>();
 		
 	public void populateHouses(){
@@ -31,7 +32,7 @@ public class Model {
 		masonryRooms.add(kitchen);
 		masonryRooms.add(showerRoom);
 		
-		Masonry masonry = new Masonry(2, 4, 3, masonryRooms, 2);
+		Masonry masonry = new Masonry("Red", 2, 4, masonryRooms, 2);
 		
 		houses.add(masonry);
 		
@@ -39,9 +40,12 @@ public class Model {
 		timberRooms.add(kitchen);
 		timberRooms.add(bathRoom);
 		
-		Timber timber = new Timber(2, 4, 3, timberRooms, "Spruce");
+		Timber timber = new Timber("Blue", 2, 4, timberRooms, "Spruce");
 		
 		houses.add(timber);
+		rooms.add(kitchen);
+		rooms.add(bathRoom);
+		rooms.add(showerRoom);
 	}
 	
 	public void populateCustomers(){
@@ -59,6 +63,15 @@ public class Model {
 		customers.add(customer2);
 	}
 
+	public void listCustomers(){
+		System.out.println("Customers:");
+		System.out.println("Username \tQuote Price \tHouse \tSubcontractor");
+		for (Customer customer : customers) {
+			System.out.print(customer);
+		}
+		System.out.println("\n\n");
+	}
+	
 	public boolean checkLogin(String username, String password) {
 		
 		for (Customer customer : customers) {
@@ -76,5 +89,48 @@ public class Model {
 	public void addCustomer(String username, String password) {
 		Customer customer = new Customer(username, password);
 		customers.add(customer);
-	}	
+	}
+
+	private Room getRoomByName(String name){ 
+		Room matchedRoom = null;
+		Logger.log("Looking for room: " + name);
+		for (Room room : rooms) { 
+			if(room.getType().equals(name)){
+				matchedRoom = room;
+				Logger.log(matchedRoom.getType());
+			}
+		}			
+		return matchedRoom;
+	}
+	
+	//match the room objects with the list provided
+	private ArrayList<Room> getRoomsFromList(ArrayList<String> roomList){
+	
+		ArrayList<Room> matchingRooms = new ArrayList<Room>();
+		Room matchedRoom;
+		for (String roomName : roomList) {
+			matchedRoom = getRoomByName(roomName);
+			matchingRooms.add(matchedRoom);
+		}	
+		return matchingRooms;
+	}
+	
+	public void addTimberHouse(String name, String squareFootage, String cost, ArrayList<String> roomList,
+			String timberType) {
+		
+		ArrayList<Room> rooms = getRoomsFromList(roomList);
+		Timber timber = new Timber(name, Integer.parseInt(squareFootage), 
+				Integer.parseInt(cost), rooms, timberType);
+		houses.add(timber);
+	}
+
+	public void addMasonryHouse(String name, String squareFootage, String cost, ArrayList<String> roomList,
+			String maxFloors) {
+		
+		ArrayList<Room> rooms = getRoomsFromList(roomList);
+		Masonry masonry = new Masonry(name, Integer.parseInt(squareFootage), 
+				Integer.parseInt(cost), rooms, Integer.parseInt(maxFloors));
+		houses.add(masonry);
+	}
+
 }

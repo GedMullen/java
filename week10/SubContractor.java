@@ -1,22 +1,22 @@
 public class SubContractor {
 
-	private String location = "";
+	private String name = "";
 	private boolean isVetted = true;
 	private boolean isAvailable = true;
 	
 	public SubContractor(String location, boolean isVetted, boolean isAvailable) {
 		super();
-		this.location = location;
+		this.name = location;
 		this.isVetted = isVetted;
 		this.isAvailable = isAvailable;
 	}
 
-	public String getLocation() {
-		return location;
+	public String getName() {
+		return name;
 	}
 
-	public void setLocation(String location) {
-		this.location = location;
+	public void setName(String location) {
+		this.name = location;
 	}
 
 	public boolean isVetted() {
@@ -37,7 +37,7 @@ public class SubContractor {
 
 	@Override
 	public String toString() {
-		return "SubContractor [location=" + location + ", isVetted=" + isVetted + ", isAvailable=" + isAvailable + "]";
+		return "SubContractor [name=" + name + ", isVetted=" + isVetted + ", isAvailable=" + isAvailable + "]";
 	}
 	
 	

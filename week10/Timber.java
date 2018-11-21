@@ -4,8 +4,8 @@ public class Timber extends House {
 
 	private String type = "";
 	
-	public Timber(int materialCost, int numberOfRooms, int squareFootage, ArrayList<Room> rooms, String type) {
-		super(materialCost, numberOfRooms, squareFootage, rooms);
+	public Timber(String name, int materialCost, int squareFootage, ArrayList<Room> rooms, String type) {
+		super(name, materialCost, squareFootage, rooms);
 		this.type = type;
 	}
 
@@ -19,8 +19,7 @@ public class Timber extends House {
 
 	@Override
 	public String toString() {
-		return "Timber [type=" + type + ", materialCost=" + materialCost + ", numberOfRooms=" + numberOfRooms
-				+ ", squareFootage=" + squareFootage + ", rooms=" + rooms + "]";
+		return "Timber [type=" + type + ", materialCost=" + materialCost + ", squareFootage=" + squareFootage + ", rooms=" + rooms + "]";
 	}
 
 

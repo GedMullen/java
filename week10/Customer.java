@@ -43,7 +43,12 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "Customer [username=" + username + ", password=" + password + ", quote=" + quote + "]";
+		
+		String s = "\n" + username;
+		if(quote != null){
+			s += "\t\t" + quote.getPrice() + "\t\t" + quote.getHouse().getName() + "\t" + quote.getSubContractor().getName(); 
+		}
+		return s;
 	}
 	
 }

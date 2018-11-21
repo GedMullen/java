@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Controller {
@@ -15,30 +16,75 @@ public class Controller {
 	}
 	
 	private void startAdminMenu(){
-		System.out.println("a) Add Customer");
-		System.out.println("b) List All Customers"); 
-		System.out.println("c) Add House Details");
-		System.out.println("d) Edit House Details");
-		System.out.println("e) List All Houses");
-		System.out.println("f) Record A Sale");
-		System.out.println("g) Edit A Sale");
-		System.out.println("h) List Sales");					
-		String option = scan.next();
-		if(option.equals("a")) addCustomer();
-		menuStart();
+		while(true){
+			System.out.println("a) Add Customer");
+			System.out.println("b) List All Customers"); 
+			System.out.println("c) Add House Details");
+			System.out.println("d) Edit House Details");
+			System.out.println("e) List All Houses");
+			System.out.println("f) Record A Sale");
+			System.out.println("g) Edit A Sale");
+			System.out.println("h) List Sales");					
+			System.out.println("i) Login");					
+			String option = scan.next();
+	        char i = option.charAt(0); 
+	        switch(i){
+	            case 'a': addCustomer(); break;
+	            case 'b': model.listCustomers(); break;
+	            case 'c': addHouse(); break;
+	            case 'i': menuStart(); break;
+	        }
+		}
 	}
-	
+		
 	private void addCustomer(){
 		System.out.println("Please enter customer user name.");
 		String username = scan.next();
 		System.out.println("Please enter customer password.");
 		String password = scan.next();
 		model.addCustomer(username, password);
+		//startAdminMenu();
 	}
 	
-	private void startCustomerMenu(){		
-		System.out.println("a) Edit Profile"); 
-		System.out.println("b) Search For A House"); 
+	private void addHouse(){
+		System.out.println("Please enter t for timber house and m for masonry house.");
+		String type = scan.next();
+		System.out.println("Please enter house name.");
+		String name = scan.next();
+		System.out.println("Please enter square footage.");
+		String squareFootage = scan.next();
+		System.out.println("Please enter cost.");
+		String cost = scan.next();
+		String room = "";
+		ArrayList<String> roomList = new ArrayList<String>();
+		while(!room.equals("finished")){
+			System.out.println("Please enter a room name to add or 'finished' when done.");
+			room = scan.next();
+			roomList.add(room);
+		}
+		if(type.equals("t")){
+			System.out.println("Please enter timber type.");
+			String timberType = scan.next();
+			model.addTimberHouse(name, squareFootage, cost, roomList, timberType);
+		}else{
+			System.out.println("Please enter the maximum number of floors.");
+			String maxFloors = scan.next();
+			model.addMasonryHouse(name, squareFootage, cost, roomList, maxFloors);			
+		}
+		printModel();
+	}
+	
+	private void startCustomerMenu(){
+		while(true){
+			System.out.println("a) Edit Profile"); 
+			System.out.println("b) Search For A House"); 
+			System.out.println("c) Login"); 
+			String option = scan.next();
+	        char i = option.charAt(0); 
+	        switch(i){
+	            case 'c': menuStart();
+	        }
+        }
 	}
 	
 	private void menuStart(){
@@ -60,7 +106,6 @@ public class Controller {
 				}
 			}
 		}
-		scan.close();		
 	}
 	
 	public static void main(String[] args) {
@@ -68,6 +113,8 @@ public class Controller {
 		Controller controller = new Controller();
 		controller.populateModel();
 		controller.printModel();
-		controller.menuStart();		
+		//controller.menuStart();	
+		controller.addHouse();
+		controller.printModel();
 	}
 }
